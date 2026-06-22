@@ -1,0 +1,277 @@
+Vandenbergue
+Sebastien
+
+Signé numériquement par Vandenbergue
+Sebastien
+DN : cn=Vandenbergue Sebastien, o=Siemens,
+email=sebastien.vandenbergue@siemens.com
+Date : 2019.05.16 17:40:41 +02'00'
+
+Lhoste
+Sidoine
+
+Signé numériquement par Lhoste
+Sidoine
+DN : cn=Lhoste Sidoine, o=Siemens,
+email=sidoine.lhoste@siemens.com
+Date : 2019.05.28 13:37:47 +02'00'
+
+Duevel
+Michael
+
+Digital signiert von Duevel Michael
+DN: cn=Duevel Michael, o=Siemens,
+email=michael.duevel@siemens.com
+Datum: 2019.05.28 13:48:20 +02'00'
+
+Vandenbergue
+Sebastien
+
+Signé numériquement par Vandenbergue
+Sebastien
+DN : cn=Vandenbergue Sebastien,
+o=Siemens,
+email=sebastien.vandenbergue@siemens.com
+Date : 2019.05.16 17:39:47 +02'00'
+
+Benoit Paul
+
+Zhu
+Penglin
+
+Digital signiert von Zhu Penglin
+DN: cn=Zhu Penglin, o=Siemens,
+email=penglin.zhu@siemens.com
+Datum: 2019.05.17 14:25:23
++02'00'
+
+Signé numériquement par Benoit
+Paul
+DN : cn=Benoit Paul, o=Siemens,
+email=paul.benoit@siemens.com
+Date : 2019.05.17 10:03:00 +02'00'
+
+Flessner
+Rolf
+
+Digital signiert von Flessner Rolf
+DN: cn=Flessner Rolf,
+o=Siemens,
+email=rolf.flessner@siemens.com
+Datum: 2019.05.20 08:41:42
++02'00'
+
+Lamtaibi
+Laila
+Benoit Paul
+
+Signé numériquement par Lamtaibi
+Laila
+DN : cn=Lamtaibi Laila, o=Siemens,
+email=laila.lamtaibi@siemens.com
+Raison : J'ai examiné ce document
+Date : 2019.05.22 13:48:30 +02'00'
+
+Signé numériquement par Benoit Paul
+DN : cn=Benoit Paul, o=Siemens,
+email=paul.benoit@siemens.com
+Date : 2019.05.22 14:29:01 +02'00'
+
+temperature  threshold,  preventive  maintenance  is  performed:  so  for  the  availability  model,  the
+failure  of  this  fan  unit  is  neglected  if  preventive  maintenance  of  temperature  sensor  is  properly
+performed by maintenance activities.
+
+· HYP_RAM_ ZC/LC/IOC_05: A common failure rate of 1% of EMC Filter failure rate.
+
+· HYP_RAM_ ZC/LC/IOC_06: thanks to the return of experiment on other projects in operation,  for
+the PCS_P02, the predictive failure rate calculated by data base (see HYP_RAM_SIG-Generic_01),
+will be divided by a 7,03
+
+· HYP_RAM_AIRLINK_01: Degraded  solutions  to  face  any  failure  are  supposed  to  be  set  on
+
+efficiently. The risk associated to a lack of cars is not taken into account in this calculation.
+
+· HYP_RAM_AIRLINK_02: The failures resulting from the following events are excluded:
+
+o  Dysfunction or suspension of the exploitation due to vandalism, “acts of god”, a misuse of the
+
+system by the passengers, or induced by a passenger,
+
+o  Dysfunction or suspension of the exploitation due to a bad operation of the operators,
+
+o  Activities of maintenance of the fixed equipment approved by the Customer,
+
+o  Suspension of the exploitation due to a system intrusion caused by a person, an animal or an
+
+object external with the system,
+
+o  Suspension of the exploitation due to an external cause with the system, for example:
+
+§  The loss of the external Power Supply,
+
+§  Fire alarms warning or the failures of the fire detection system
+
+§ 
+
+Instructions or directives of the police services, safety services…,
+
+§  Cases of major forces,
+
+§  Weather conditions not allowing the continuation of the operation,
+
+§  Suspension of the exploitation for particular training (for example, training of the first-aid
+
+organizations for the evacuation of a car).
+
+· HYP_RAM_AIRLINK_03: When  a  failure  occurs  in  a  redundant  on  board  ATC  sub-system
+(without  impacting  the  passenger  service),  then  the  train  service  is  maintained  in  degraded
+solution. We assume that the train  is sent to  the workshop when it reaches the end of  the line
+and is replaced by another train. This assumption allows defining the MDT for the onboard radio
+This hypothesis is only linked to the Radio System that is part of the CBTC solution, not related
+to the Multimedia System.
+
+· HYP_RAM_AIRLINK_04: About availability calculations only:
+
+o  Failures of the CSR, AP dongles and TU encryption cards are not taken into account because
+they have no functional impact during nominal operating. In fact, dongles/encryption cards are
+mainly used at boot time but availability calculations don't take into account any re/boot failure.
+Dongle/encryption  card  are  also  used  during  operation  in  order  to  increase  the  entropy  of
+random  numbers  required  by  the  software.  Nevertheless  the  entropy  achieved  during  a  MDT
+period without dongle is considered sufficient.
+
+ð  This last assumption is not applied to reliability calculations.
+
+Document No. M-BSM-000000-SS00-ESP-000053 Rev.00D
+
+Page 24 of 71
+
+Electronic documents once printed, are uncontrolled and may become out-dated. Refer to Aconex for current revision.
+
+© 2018 Riyadh Development Authority
+
+where  MTTR  target  is  just  meant  to  be  applicable  for  the  electrical  components  of  the  FVD
+(controller,  connector  and  transformer),  because  the  mechanical  part  can  fail  only  for  external
+causes such as a vehicle accident that could destroy the detection net, thereof causing a repair time
+longer  than  30  minutes.  In  order  to  increase  the  availability  of  FVD  und  hence  reduce  its  failure
+impact  on  the  service  availability  of  overall  metro  transit  system,  FVD  is  designed  with  redundant
+double detection circuits for Riyadh project (see [RD 10]), as indicated in picture 15 above.
+
+The FVD availability fault tree model is as follows:
+
+failure of 2 FVD circuits
+A=0.999953
+MTBF=1.5325E6 h
+
+AND
+
+1 FVD circuit failure
+
+OR
+
+1 FVD circuit failure
+
+OR
+
+failure of SOM6
+A6Z00032287744
+A=0.999751
+MTBF=289080 h
+
+SOM6_FVD
+
+failure of components
+
+OR
+
+failure of SOM6
+A6Z00032287744
+A=0.999751
+MTBF=289080 h
+
+SOM6_FVD
+
+failure of components
+
+OR
+
+max. 6500m cable
+A=0.999953
+MTBF=1.5385E6 h
+
+SIG_cable
+:R
+
+A=0.999993
+MTBF=1.0000E7 h
+
+A=0.999996
+MTBF=2E7 h
+
+max. 600m cable
+A=0.999957
+MTBF=1.6667E6 h
+
+Transformer
+
+Resistor
+
+FVD_net
+
+max. 6500m cable
+A=0.999953
+MTBF=1.5385E6 h
+
+SIG_cable
+:R
+
+A=0.999993
+MTBF=1.0000E7 h
+
+A=0.999996
+MTBF=2E7 h
+
+max. 600m cable
+A=0.999957
+MTBF=1.6667E6 h
+
+Transformer
+
+Resistor
+
+FVD_net
+
+Picture 16  Fault Tree Model of FVD
+
+4.7.3.  FVD AVAILABILITY RESULTS
+
+The result of FVD fault tree model in picture 16 shows FVD fulfills its RAM requirements:
+
+MTBF = 1500000 H > 130000 H (target)
+
+MDT = to be assessed at Transit System level considering the operational access time.
+
+4.8.  WAYSIDE TRANSPONDER
+
+4.8.1.  WAYSIDE TRANSPONDER FUNCTION AND ARCHITECTURE
+
+DIGISAFE transponders are used to provide an absolute localisation reference to the on-board TGMT
+computer  when  passing  over  a  transponder.  This  reference  is  used  by  the  Carborne  Controller  to
+initialize the localisation of a non-localized train (i.e. a train exiting the non-automatic zone of the depot)
+and to regularly reduce the localization uncertainty of an already localized train.
+
+Transponders  are  robust,  sturdy,  passive  components  not  requiring  any  power  supply  or  cable
+connection.
+
+Position of the transponders on the railway network is determined during the detail design according to
+the system performances constraints (i.e.: specific pattern of transponders at platform to improve ATO
+stopping accuracy and safely open the platform doors).
+
+Document No. M-BSM-000000-SS00-ESP-000053 Rev.00D
+
+Page 53 of 71
+
+Electronic documents once printed, are uncontrolled and may become out-dated. Refer to Aconex for current revision.
+
+© 2018 Riyadh Development Authority
+
+
