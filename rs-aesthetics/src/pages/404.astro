@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout title="Page Not Found" description="The page you're looking for could not be found.">
+  <section class="not-found container">
+    <p class="eyebrow">404</p>
+    <h1>We couldn't find that page</h1>
+    <p>The page you're looking for may have moved. Try the homepage or explore our treatments.</p>
+    <div class="not-found__actions">
+      <Button href="/" variant="primary">Back to Home</Button>
+      <Button href="/treatments" variant="secondary">View Treatments</Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .not-found {
+    padding-block: var(--space-10);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .not-found p {
+    max-width: 28rem;
+    color: var(--color-ink-soft);
+  }
+
+  .not-found__actions {
+    margin-top: var(--space-4);
+    display: flex;
+    gap: var(--space-4);
+  }
+</style>

@@ -1,0 +1,237 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { doctor } from '../data/doctor';
+---
+
+<Layout
+  title="About Dr. Rabia Saif"
+  description="Meet Dr. Rabia Saif, MBBS — founder of RS Aesthetics, PMDC registered physician with a Master in Medical Aesthetics from London Aesthetics UK. Doctor-led, consultation-first aesthetic medicine in Rawalpindi."
+>
+  <section class="profile container">
+    <div class="profile__photo" role="img" aria-label={`Portrait of ${doctor.name} — coming soon`}>
+      <span aria-hidden="true">{doctor.name.split(' ').map((w) => w[0]).join('')}</span>
+    </div>
+    <div class="profile__content">
+      <p class="eyebrow">Meet the Doctor</p>
+      <h1>{doctor.name}, {doctor.postNominal}</h1>
+      <p class="profile__title">{doctor.title}</p>
+
+      <dl class="profile__facts">
+        <div>
+          <dt>Registration</dt>
+          <dd>{doctor.registration}</dd>
+        </div>
+        <div>
+          <dt>Experience</dt>
+          <dd>{doctor.yearsExperience} years in aesthetic medicine</dd>
+        </div>
+        <div>
+          <dt>Languages</dt>
+          <dd>{doctor.languages.join(', ')}</dd>
+        </div>
+      </dl>
+
+      <WhatsAppLink variant="primary">Book a Consultation</WhatsAppLink>
+    </div>
+  </section>
+
+  <section class="bio container">
+    {doctor.bio.map((paragraph) => <p>{paragraph}</p>)}
+  </section>
+
+  <section class="qualifications container">
+    <SectionHeading eyebrow="Credentials" heading="Qualifications & training" />
+    <ul class="qualifications__list">
+      {doctor.qualifications.map((q) => <li>{q}</li>)}
+    </ul>
+    <p class="qualifications__note">{doctor.certificationsNote}</p>
+  </section>
+
+  <section class="focus">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Areas of Focus"
+        heading="Where Dr. Rabia concentrates her practice"
+      />
+      <div class="focus-grid">
+        {doctor.focusAreas.map((area) => (
+          <div class="focus-card">
+            <h3>{area.title}</h3>
+            <p>{area.description}</p>
+          </div>
+        ))}
+      </div>
+      <p class="focus__trustline">{doctor.trustLine}</p>
+    </div>
+  </section>
+
+  <section class="cta container">
+    <h2>Start with a consultation</h2>
+    <p>Every treatment plan begins with an assessment — message us to arrange yours.</p>
+    <WhatsAppLink variant="primary" size="lg">Chat on WhatsApp</WhatsAppLink>
+  </section>
+</Layout>
+
+<style>
+  .profile {
+    display: grid;
+    gap: var(--space-7);
+    padding-block: var(--space-8);
+  }
+
+  .profile__photo {
+    aspect-ratio: 4 / 5;
+    background: var(--color-surface-alt);
+    border: var(--border-hairline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile__photo span {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    color: var(--color-accent);
+  }
+
+  .profile__title {
+    margin-top: var(--space-2);
+    color: var(--color-ink-soft);
+  }
+
+  .profile__facts {
+    margin: var(--space-6) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .profile__facts div {
+    display: flex;
+    gap: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .profile__facts dt {
+    width: 8rem;
+    flex-shrink: 0;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+  }
+
+  .profile__facts dd {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+  }
+
+  .bio {
+    padding-block: var(--space-7);
+    border-top: var(--border-hairline);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 42rem;
+  }
+
+  .bio p {
+    font-size: var(--text-md);
+    line-height: var(--leading-normal);
+    color: var(--color-ink-soft);
+  }
+
+  .qualifications {
+    padding-block: var(--space-7);
+    border-top: var(--border-hairline);
+  }
+
+  .qualifications__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 32rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .qualifications__list li {
+    padding: var(--space-3) 0;
+    border-bottom: 1px dashed var(--color-border);
+    font-size: var(--text-md);
+  }
+
+  .qualifications__note {
+    margin-top: var(--space-5);
+    max-width: 36rem;
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+    line-height: var(--leading-normal);
+  }
+
+  .focus {
+    padding-block: var(--space-8);
+    background: var(--color-surface);
+    border-top: var(--border-hairline);
+    border-bottom: var(--border-hairline);
+  }
+
+  .focus-grid {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
+  }
+
+  .focus-card {
+    padding: var(--space-5);
+    background: var(--color-bg);
+    border: var(--border-hairline);
+  }
+
+  .focus-card h3 {
+    font-size: var(--text-md);
+  }
+
+  .focus-card p {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+    line-height: var(--leading-snug);
+  }
+
+  .focus__trustline {
+    margin-top: var(--space-6);
+    font-style: italic;
+    color: var(--color-accent-strong);
+  }
+
+  .cta {
+    padding-block: var(--space-9);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .cta p {
+    color: var(--color-ink-soft);
+    max-width: 26rem;
+  }
+
+  @media (min-width: 900px) {
+    .profile {
+      grid-template-columns: 0.8fr 1fr;
+    }
+
+    .focus-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

@@ -3,3 +3,10 @@ __pycache__/
 *.pyc
 *.pyo
 .env
+
+# Astro / Node (rs-aesthetics website)
+node_modules/
+dist/
+.astro/
+npm-debug.log*
+.DS_Store

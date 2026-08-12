@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { clinic } from '../data/clinic';
+---
+
+<Layout
+  title="Cancellation Policy"
+  description="RS Aesthetics' policy on appointment cancellations and rescheduling."
+>
+  <section class="legal container">
+    <p class="eyebrow">Legal</p>
+    <h1>Cancellation Policy</h1>
+    <p class="legal__updated">This page is a placeholder and will be replaced with a finalised policy before public launch.</p>
+
+    <div class="legal__body">
+      <p>
+        If you need to cancel or reschedule an appointment, please let us know via WhatsApp as
+        early as possible so we can offer your slot to another patient.
+      </p>
+      <p>
+        Full details on notice periods, deposits, and cancellation terms will be published here.
+        In the meantime, please message us on WhatsApp or email
+        <a href={`mailto:${clinic.email}`}>{clinic.email}</a> with any questions about an existing
+        appointment.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal {
+    padding-block: var(--space-8) var(--space-9);
+    max-width: 42rem;
+  }
+
+  .legal h1 {
+    margin-top: var(--space-3);
+  }
+
+  .legal__updated {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+    font-style: italic;
+  }
+
+  .legal__body {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .legal__body p {
+    line-height: var(--leading-normal);
+    color: var(--color-ink-soft);
+  }
+
+  .legal__body a {
+    color: var(--color-accent-strong);
+  }
+</style>

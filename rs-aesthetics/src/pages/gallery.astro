@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+import treatmentRoom from '../assets/images/clinic/rs-aesthetics-treatment-room.jpg';
+import waitingArea from '../assets/images/clinic/rs-aesthetics-waiting-area.jpg';
+import clinicLobby from '../assets/images/clinic/rs-aesthetics-clinic-lobby.jpg';
+
+const images = [
+  { src: waitingArea, alt: 'RS Aesthetics reception and waiting area', caption: 'Reception & waiting area' },
+  { src: treatmentRoom, alt: 'RS Aesthetics treatment room with laser and skincare equipment', caption: 'Treatment room' },
+  { src: clinicLobby, alt: 'RS Aesthetics clinic entrance and lobby', caption: 'Clinic entrance' },
+];
+---
+
+<Layout
+  title="Gallery"
+  description="A look inside RS Aesthetics — the clinic's reception, treatment room, and entrance in Alpha Mall, Rawalpindi."
+>
+  <section class="gallery-page container">
+    <SectionHeading
+      as="h1"
+      eyebrow="Gallery"
+      heading="Inside RS Aesthetics"
+      intro="A look at the clinic in Alpha Mall, Rawalpindi. Before-and-after photography will be added here once available, with patient consent."
+    />
+    <div class="gallery-grid">
+      {images.map((img) => (
+        <figure>
+          <Image src={img.src} alt={img.alt} width={900} height={675} />
+          <figcaption>{img.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <div class="coming-soon">
+      <h2>Before &amp; after</h2>
+      <p>Real patient results, shown with consent, are coming soon.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .gallery-page {
+    padding-block: var(--space-8) var(--space-9);
+  }
+
+  .gallery-grid {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid img {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+  }
+
+  figcaption {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+  }
+
+  .coming-soon {
+    margin-top: var(--space-9);
+    padding: var(--space-8);
+    text-align: center;
+    background: var(--color-surface-alt);
+    border: var(--border-hairline);
+  }
+
+  .coming-soon p {
+    margin-top: var(--space-3);
+    color: var(--color-ink-soft);
+  }
+
+  @media (min-width: 720px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

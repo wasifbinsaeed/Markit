@@ -1,0 +1,58 @@
+---
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  intro?: string;
+  align?: 'left' | 'center';
+  light?: boolean;
+  as?: 'h1' | 'h2';
+}
+
+const { eyebrow, heading, intro, align = 'left', light = false, as = 'h2' } = Astro.props as Props;
+const Tag = as;
+---
+
+<div class:list={['section-heading', `section-heading--${align}`, { 'section-heading--light': light }]}>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <Tag class="section-heading__title">{heading}</Tag>
+  {intro && <p class="section-heading__intro">{intro}</p>}
+</div>
+
+<style>
+  .section-heading {
+    max-width: 40rem;
+    margin-bottom: var(--space-7);
+  }
+
+  .section-heading--center {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .section-heading .eyebrow {
+    margin-bottom: var(--space-3);
+  }
+
+  .section-heading__title {
+    font-size: var(--text-3xl);
+  }
+
+  .section-heading__intro {
+    margin-top: var(--space-4);
+    font-size: var(--text-md);
+    line-height: var(--leading-normal);
+    color: var(--color-ink-soft);
+  }
+
+  .section-heading--light .eyebrow {
+    color: var(--color-accent-soft);
+  }
+
+  .section-heading--light .section-heading__title {
+    color: var(--color-on-espresso);
+  }
+
+  .section-heading--light .section-heading__intro {
+    color: rgba(245, 241, 232, 0.75);
+  }
+</style>

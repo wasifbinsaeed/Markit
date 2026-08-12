@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { clinic } from '../data/clinic';
+---
+
+<Layout
+  title="Privacy Policy"
+  description="How RS Aesthetics handles the information you share with us."
+>
+  <section class="legal container">
+    <p class="eyebrow">Legal</p>
+    <h1>Privacy Policy</h1>
+    <p class="legal__updated">This page is a placeholder and will be replaced with a complete policy before public launch.</p>
+
+    <div class="legal__body">
+      <p>
+        RS Aesthetics collects only the information you choose to share with us — for example,
+        your name and contact details when you message us on WhatsApp or by email to arrange a
+        consultation. We do not use this information for anything other than responding to your
+        enquiry and providing your care.
+      </p>
+      <p>
+        We do not sell or share your personal information with third parties for marketing
+        purposes. If you have any questions about how your information is handled, please contact
+        us at <a href={`mailto:${clinic.email}`}>{clinic.email}</a>.
+      </p>
+      <p>A full, formal privacy policy will be published here before the site goes live publicly.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal {
+    padding-block: var(--space-8) var(--space-9);
+    max-width: 42rem;
+  }
+
+  .legal h1 {
+    margin-top: var(--space-3);
+  }
+
+  .legal__updated {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+    font-style: italic;
+  }
+
+  .legal__body {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .legal__body p {
+    line-height: var(--leading-normal);
+    color: var(--color-ink-soft);
+  }
+
+  .legal__body a {
+    color: var(--color-accent-strong);
+  }
+</style>

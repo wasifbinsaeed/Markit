@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { clinic } from '../data/clinic';
+---
+
+<Layout
+  title="Terms of Use"
+  description="Terms governing the use of the RS Aesthetics website."
+>
+  <section class="legal container">
+    <p class="eyebrow">Legal</p>
+    <h1>Terms of Use</h1>
+    <p class="legal__updated">This page is a placeholder and will be replaced with complete terms before public launch.</p>
+
+    <div class="legal__body">
+      <p>
+        This website provides general information about RS Aesthetics and its treatments. It is
+        not a substitute for a medical consultation, and nothing on this site should be taken as
+        medical advice specific to you.
+      </p>
+      <p>
+        Treatment suitability, process, and outcomes are discussed individually during a
+        consultation with Dr. Rabia Saif. Information on this site — including treatment
+        descriptions — is general and may not reflect every consideration relevant to your case.
+      </p>
+      <p>
+        Questions about these terms can be sent to <a href={`mailto:${clinic.email}`}>{clinic.email}</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal {
+    padding-block: var(--space-8) var(--space-9);
+    max-width: 42rem;
+  }
+
+  .legal h1 {
+    margin-top: var(--space-3);
+  }
+
+  .legal__updated {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+    font-style: italic;
+  }
+
+  .legal__body {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .legal__body p {
+    line-height: var(--leading-normal);
+    color: var(--color-ink-soft);
+  }
+
+  .legal__body a {
+    color: var(--color-accent-strong);
+  }
+</style>

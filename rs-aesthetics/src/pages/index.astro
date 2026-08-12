@@ -1,0 +1,500 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import Button from '../components/Button.astro';
+import { clinic } from '../data/clinic';
+import { doctor } from '../data/doctor';
+import { treatmentCategories } from '../data/treatments';
+import { generalFaqs } from '../data/faqs';
+
+import treatmentRoom from '../assets/images/clinic/rs-aesthetics-treatment-room.jpg';
+import waitingArea from '../assets/images/clinic/rs-aesthetics-waiting-area.jpg';
+import clinicLobby from '../assets/images/clinic/rs-aesthetics-clinic-lobby.jpg';
+
+const galleryImages = [
+  { src: waitingArea, alt: 'RS Aesthetics reception and waiting area with seating' },
+  { src: treatmentRoom, alt: 'RS Aesthetics treatment room with laser and skincare equipment' },
+  { src: clinicLobby, alt: 'RS Aesthetics clinic entrance and lobby' },
+];
+
+const trustPoints = [
+  'PMDC Registered',
+  `${doctor.yearsExperience} Years in Aesthetic Medicine`,
+  'Injectables Performed Personally by Dr. Rabia',
+  'London Aesthetics UK Trained',
+];
+
+const whyPoints = [
+  {
+    title: 'Doctor-led, always',
+    description: `Every treatment is overseen by ${doctor.name}, ${doctor.postNominal}, registered with the Pakistan Medical & Dental Council.`,
+  },
+  {
+    title: 'Consultation before cosmetics',
+    description: 'We assess before we treat. If something needs a different approach — or no treatment at all — we say so.',
+  },
+  {
+    title: 'Sealed products, opened in front of you',
+    description: 'Every product used in your treatment is sealed and in date, and opened in the room with you present.',
+  },
+  {
+    title: 'Conservative, natural-looking work',
+    description: 'Injectable and thread treatments are dosed conservatively — the aim is that nobody can tell.',
+  },
+];
+
+const previewFaqs = generalFaqs.slice(0, 4);
+---
+
+<Layout
+  title={clinic.name}
+  description="RS Aesthetics is a doctor-led aesthetic medicine clinic in Rawalpindi offering skin, laser and injectable treatments under Dr. Rabia Saif, MBBS. Consultation before cosmetics."
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <p class="eyebrow">{clinic.descriptor}</p>
+      <h1>Aesthetic medicine that starts with a diagnosis, not a price list.</h1>
+      <p class="hero__lead">
+        RS Aesthetics is a doctor-led clinic in Rawalpindi offering skin, laser and aesthetic
+        medicine. Every treatment begins with an assessment by {doctor.name}, {doctor.postNominal}.
+      </p>
+      <div class="hero__actions">
+        <WhatsAppLink variant="primary" size="lg">Book on WhatsApp</WhatsAppLink>
+        <Button href="/treatments" variant="secondary" size="lg">View Treatments</Button>
+      </div>
+      <ul class="hero__trust">
+        {trustPoints.map((point) => <li>{point}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Meet the doctor -->
+  <section class="doctor container">
+    <div class="doctor__photo" role="img" aria-label={`Portrait of ${doctor.name} — coming soon`}>
+      <span aria-hidden="true">{doctor.name.split(' ').map((w) => w[0]).join('')}</span>
+    </div>
+    <div class="doctor__content">
+      <p class="eyebrow">Meet the Doctor</p>
+      <h2>{doctor.name}, {doctor.postNominal}</h2>
+      <p class="doctor__title">{doctor.title} · {doctor.registration}</p>
+      <p class="doctor__bio">{doctor.bio[0]}</p>
+      <p class="doctor__trustline">{doctor.trustLine}</p>
+      <Button href="/about" variant="text">Read her full profile →</Button>
+    </div>
+  </section>
+
+  <!-- Treatment categories -->
+  <section class="treatments-overview">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Treatments"
+        heading="Six areas of focus, one consultation-first approach"
+        intro="Every category below is planned around your skin, not a fixed package. Message us on WhatsApp to discuss what's right for you."
+      />
+      <div class="treatments-grid">
+        {treatmentCategories.map((cat, i) => (
+          <a href={`/treatments#${cat.slug}`} class="treatment-card">
+            <span class="treatment-card__index">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{cat.title}</h3>
+            <p>{cat.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why RS Aesthetics -->
+  <section class="why">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Why RS Aesthetics"
+        heading="A private medical practice, not a beauty counter"
+        light
+      />
+      <div class="why-grid">
+        {whyPoints.map((point) => (
+          <div class="why-card">
+            <h3>{point.title}</h3>
+            <p>{point.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery container">
+    <SectionHeading
+      eyebrow="Inside the Clinic"
+      heading="Step inside RS Aesthetics"
+      intro="A look at the clinic in Alpha Mall, Rawalpindi."
+    />
+    <div class="gallery-grid">
+      {galleryImages.map((img) => (
+        <figure>
+          <Image src={img.src} alt={img.alt} width={800} height={600} />
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ preview -->
+  <section class="faq-preview">
+    <div class="container">
+      <SectionHeading eyebrow="Questions" heading="Frequently asked" />
+      <div class="faq-list">
+        {previewFaqs.map((faq) => (
+          <details>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+      <Button href="/faqs" variant="text">See all FAQs →</Button>
+    </div>
+  </section>
+
+  <!-- Location -->
+  <section class="location container">
+    <div class="location__info">
+      <p class="eyebrow">Visit</p>
+      <h2>{clinic.address.line1}</h2>
+      <p>{clinic.address.line2}</p>
+      <ul class="location__hours">
+        {clinic.hours.map((h) => (
+          <li><span>{h.days}</span><span>{h.time}</span></li>
+        ))}
+      </ul>
+      <div class="location__actions">
+        <WhatsAppLink variant="primary">Get Directions on WhatsApp</WhatsAppLink>
+        <Button href="/contact" variant="secondary">Contact Page</Button>
+      </div>
+    </div>
+    <div class="location__map" aria-hidden="true">
+      <p>Map coming soon</p>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <div class="container final-cta__inner">
+      <h2>Ready to talk about your skin?</h2>
+      <p>Message Dr. Rabia's team on WhatsApp to arrange a consultation.</p>
+      <WhatsAppLink variant="primary" size="lg">Chat on WhatsApp</WhatsAppLink>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    padding-block: var(--space-9) var(--space-8);
+    border-bottom: var(--border-hairline);
+  }
+
+  .hero__inner {
+    max-width: 44rem;
+  }
+
+  .hero h1 {
+    margin-top: var(--space-4);
+    font-size: clamp(2.25rem, 5vw, var(--text-4xl));
+  }
+
+  .hero__lead {
+    margin-top: var(--space-5);
+    font-size: var(--text-md);
+    color: var(--color-ink-soft);
+    max-width: 36rem;
+  }
+
+  .hero__actions {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .hero__trust {
+    margin-top: var(--space-8);
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+  }
+
+  .hero__trust li {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--color-ink-faint);
+    padding-left: var(--space-4);
+    position: relative;
+  }
+
+  .hero__trust li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.4em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  .doctor {
+    display: grid;
+    gap: var(--space-7);
+    padding-block: var(--space-9);
+    align-items: center;
+  }
+
+  .doctor__photo {
+    aspect-ratio: 4 / 5;
+    background: var(--color-surface-alt);
+    border: var(--border-hairline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent-soft);
+  }
+
+  .doctor__photo span {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    color: var(--color-accent);
+  }
+
+  .doctor__title {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+  }
+
+  .doctor__bio {
+    margin-top: var(--space-5);
+    font-size: var(--text-md);
+    line-height: var(--leading-normal);
+    color: var(--color-ink-soft);
+  }
+
+  .doctor__trustline {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--color-accent-strong);
+  }
+
+  .doctor__content :global(.btn) {
+    margin-top: var(--space-5);
+  }
+
+  .treatments-overview {
+    padding-block: var(--space-9);
+    background: var(--color-surface);
+    border-block: var(--border-hairline);
+  }
+
+  .treatments-grid {
+    display: grid;
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+    grid-template-columns: 1fr;
+  }
+
+  .treatment-card {
+    background: var(--color-surface);
+    padding: var(--space-6);
+    text-decoration: none;
+    color: var(--color-ink);
+    transition: background-color 0.2s var(--ease);
+  }
+
+  .treatment-card:hover {
+    background: var(--color-surface-alt);
+  }
+
+  .treatment-card__index {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    color: var(--color-accent-strong);
+  }
+
+  .treatment-card h3 {
+    margin-top: var(--space-3);
+    font-size: var(--text-lg);
+  }
+
+  .treatment-card p {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+    line-height: var(--leading-snug);
+  }
+
+  .why {
+    padding-block: var(--space-9);
+    background: var(--color-espresso);
+    color: var(--color-on-espresso);
+  }
+
+  .why-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+  }
+
+  .why-card h3 {
+    color: var(--color-on-espresso);
+    font-size: var(--text-lg);
+  }
+
+  .why-card p {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: rgba(245, 241, 232, 0.7);
+    line-height: var(--leading-normal);
+  }
+
+  .gallery {
+    padding-block: var(--space-9);
+  }
+
+  .gallery-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid img {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+  }
+
+  .faq-preview {
+    padding-block: var(--space-9);
+    background: var(--color-surface);
+    border-block: var(--border-hairline);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 44rem;
+  }
+
+  details {
+    border: var(--border-hairline);
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-bg);
+  }
+
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: var(--text-md);
+  }
+
+  details p {
+    margin-top: var(--space-3);
+    color: var(--color-ink-soft);
+    line-height: var(--leading-normal);
+  }
+
+  .faq-preview :global(.btn) {
+    margin-top: var(--space-6);
+  }
+
+  .location {
+    padding-block: var(--space-9);
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .location__hours {
+    list-style: none;
+    margin: var(--space-5) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    max-width: 20rem;
+  }
+
+  .location__hours li {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .location__actions {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .location__map {
+    background: var(--color-surface-alt);
+    border: var(--border-hairline);
+    min-height: 16rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-ink-faint);
+    font-size: var(--text-sm);
+  }
+
+  .final-cta {
+    background: var(--color-surface-alt);
+    border-top: var(--border-hairline);
+  }
+
+  .final-cta__inner {
+    padding-block: var(--space-8);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .final-cta p {
+    color: var(--color-ink-soft);
+    max-width: 28rem;
+  }
+
+  @media (min-width: 720px) {
+    .why-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .treatments-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .doctor {
+      grid-template-columns: 0.8fr 1fr;
+    }
+
+    .location {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

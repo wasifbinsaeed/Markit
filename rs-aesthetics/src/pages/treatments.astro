@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { treatmentCategories, treatmentsDisclaimer, SHOW_PRICES } from '../data/treatments';
+---
+
+<Layout
+  title="Treatments"
+  description="Explore RS Aesthetics' full treatment menu — hydrafacials, PRP & microneedling, laser hair removal, peels, anti-wrinkle injections, and regenerative boosters. Consultation-first, doctor-led."
+>
+  <section class="treatments-hero container">
+    <SectionHeading
+      as="h1"
+      eyebrow="Treatment Menu"
+      heading="Every treatment, planned around your skin"
+      intro="Browse by category below. Pricing is confirmed at consultation, based on what your skin actually needs — message us on WhatsApp with any questions."
+    />
+  </section>
+
+  {treatmentCategories.map((cat) => (
+    <section id={cat.slug} class="category container">
+      <div class="category__header">
+        <h2>{cat.title}</h2>
+        <p>{cat.description}</p>
+      </div>
+      <ul class="category__list">
+        {cat.treatments.map((t) => (
+          <li>
+            <span class="category__name">{t.name}</span>
+            {SHOW_PRICES ? (
+              <span class="category__price">PKR {t.priceRs.toLocaleString()}</span>
+            ) : (
+              <span class="category__price category__price--muted">Consultation required for pricing</span>
+            )}
+          </li>
+        ))}
+      </ul>
+      <WhatsAppLink
+        variant="secondary"
+        message={`Hi RS Aesthetics, I'd like to know more about ${cat.title}.`}
+      >
+        Ask about {cat.title}
+      </WhatsAppLink>
+    </section>
+  ))}
+
+  <section class="disclaimer container">
+    <p>{treatmentsDisclaimer}</p>
+  </section>
+</Layout>
+
+<style>
+  .treatments-hero {
+    padding-block: var(--space-8) var(--space-6);
+  }
+
+  .category {
+    padding-block: var(--space-7);
+    border-top: var(--border-hairline);
+  }
+
+  .category__header {
+    max-width: 36rem;
+    margin-bottom: var(--space-6);
+  }
+
+  .category__header p {
+    margin-top: var(--space-3);
+    color: var(--color-ink-soft);
+    line-height: var(--leading-normal);
+  }
+
+  .category__list {
+    list-style: none;
+    margin: 0 0 var(--space-6);
+    padding: 0;
+    max-width: 42rem;
+  }
+
+  .category__list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .category__name {
+    font-size: var(--text-md);
+    color: var(--color-ink);
+  }
+
+  .category__price {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-accent-strong);
+    white-space: nowrap;
+  }
+
+  .category__price--muted {
+    font-weight: 500;
+    color: var(--color-ink-faint);
+    font-style: italic;
+  }
+
+  .disclaimer {
+    padding-block: var(--space-7) var(--space-9);
+    border-top: var(--border-hairline);
+  }
+
+  .disclaimer p {
+    max-width: 40rem;
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+    line-height: var(--leading-normal);
+  }
+</style>

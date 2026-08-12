@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { generalFaqs } from '../data/faqs';
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: generalFaqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<Layout
+  title="FAQs"
+  description="Answers to common questions about booking, consultations, pricing, and treatments at RS Aesthetics, Rawalpindi."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} is:inline />
+
+  <section class="faqs container">
+    <SectionHeading as="h1" eyebrow="Questions" heading="Frequently asked questions" />
+    <div class="faq-list">
+      {generalFaqs.map((faq) => (
+        <details>
+          <summary>{faq.question}</summary>
+          <p>{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+
+    <div class="faq-cta">
+      <h2>Still have a question?</h2>
+      <WhatsAppLink variant="primary">Ask us on WhatsApp</WhatsAppLink>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .faqs {
+    padding-block: var(--space-8) var(--space-9);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 44rem;
+  }
+
+  details {
+    border: var(--border-hairline);
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-surface);
+  }
+
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: var(--text-md);
+  }
+
+  details p {
+    margin-top: var(--space-3);
+    color: var(--color-ink-soft);
+    line-height: var(--leading-normal);
+  }
+
+  .faq-cta {
+    margin-top: var(--space-8);
+    padding: var(--space-7);
+    background: var(--color-surface-alt);
+    border: var(--border-hairline);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    max-width: 44rem;
+  }
+</style>

@@ -1,0 +1,93 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import WhatsAppFloatingButton from '../components/WhatsAppFloatingButton.astro';
+import { clinic } from '../data/clinic';
+import { doctor } from '../data/doctor';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+}
+
+const { title, description, path = Astro.url.pathname } = Astro.props;
+
+const siteUrl = 'https://rsaesthetics.pk';
+const canonicalUrl = new URL(path, siteUrl).toString();
+const pageTitle = title === clinic.name ? title : `${title} | ${clinic.name}`;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalClinic',
+  name: clinic.name,
+  description: 'Doctor-led aesthetic medicine clinic offering skin, laser and injectable treatments in Rawalpindi, Pakistan.',
+  url: siteUrl,
+  telephone: clinic.phones[0].tel,
+  email: clinic.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: clinic.address.line1 + ', ' + clinic.address.line2,
+    addressLocality: clinic.address.city,
+    addressRegion: clinic.address.region,
+    addressCountry: 'PK',
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '12:00',
+      closes: '19:00',
+    },
+  ],
+  medicalSpecialty: 'Dermatology',
+  physician: {
+    '@type': 'Physician',
+    name: doctor.name,
+    medicalSpecialty: 'Dermatology',
+  },
+  sameAs: [clinic.socials.instagram],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta name="theme-color" content="#F5F1E8" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={clinic.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content="en_PK" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+      <WhatsAppFloatingButton />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

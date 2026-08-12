@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { clinic } from '../data/clinic';
+---
+
+<Layout
+  title="Contact"
+  description="Contact RS Aesthetics in Rawalpindi — WhatsApp, phone, email, address, and clinic hours. Consultation-first aesthetic medicine."
+>
+  <section class="contact container">
+    <SectionHeading
+      as="h1"
+      eyebrow="Contact"
+      heading="Get in touch"
+      intro="The fastest way to reach us is WhatsApp. Message us with your name and what you'd like to discuss, and we'll reply to confirm a time."
+    />
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h2>WhatsApp &amp; Phone</h2>
+        <ul>
+          {clinic.phones.map((p) => (
+            <li>
+              <a href={`tel:${p.tel}`}>{p.display}</a>
+            </li>
+          ))}
+        </ul>
+        <WhatsAppLink variant="primary">Message on WhatsApp</WhatsAppLink>
+      </div>
+
+      <div class="contact-card">
+        <h2>Email</h2>
+        <p><a href={`mailto:${clinic.email}`}>{clinic.email}</a></p>
+      </div>
+
+      <div class="contact-card">
+        <h2>Address</h2>
+        <p>{clinic.address.line1}<br />{clinic.address.line2}</p>
+      </div>
+
+      <div class="contact-card">
+        <h2>Hours</h2>
+        <ul class="hours">
+          {clinic.hours.map((h) => (
+            <li><span>{h.days}</span><span>{h.time}</span></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="contact-card">
+        <h2>Instagram</h2>
+        <p><a href={clinic.socials.instagram} target="_blank" rel="noopener noreferrer">@aestheticsskinhairs</a></p>
+      </div>
+    </div>
+
+    <div class="contact-map" aria-hidden="true">
+      <p>Map embed coming soon — our Google Business listing is under review.</p>
+    </div>
+
+    <p class="contact-note">
+      Submitting a message on WhatsApp is a request for an appointment, not a confirmed booking.
+      The clinic will reply to confirm your time.
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .contact {
+    padding-block: var(--space-8) var(--space-9);
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
+    margin-bottom: var(--space-7);
+  }
+
+  .contact-card {
+    padding: var(--space-6);
+    border: var(--border-hairline);
+    background: var(--color-surface);
+  }
+
+  .contact-card h2 {
+    font-size: var(--text-md);
+    margin-bottom: var(--space-4);
+  }
+
+  .contact-card ul {
+    list-style: none;
+    margin: 0 0 var(--space-5);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .contact-card a {
+    text-decoration: none;
+    color: var(--color-ink);
+    font-size: var(--text-md);
+  }
+
+  .contact-card a:hover {
+    color: var(--color-accent-strong);
+  }
+
+  .contact-card p {
+    color: var(--color-ink-soft);
+    line-height: var(--leading-snug);
+  }
+
+  .hours {
+    max-width: 20rem;
+  }
+
+  .hours li {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+  }
+
+  .contact-map {
+    min-height: 14rem;
+    background: var(--color-surface-alt);
+    border: var(--border-hairline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-5);
+    color: var(--color-ink-faint);
+    font-size: var(--text-sm);
+  }
+
+  .contact-note {
+    margin-top: var(--space-6);
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+    max-width: 40rem;
+  }
+
+  @media (min-width: 720px) {
+    .contact-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
