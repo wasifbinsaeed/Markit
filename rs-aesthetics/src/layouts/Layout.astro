@@ -2,6 +2,7 @@
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import WhatsAppFloatingButton from '../components/WhatsAppFloatingButton.astro';
+import MobileStickyBar from '../components/MobileStickyBar.astro';
 import { clinic } from '../data/clinic';
 import { doctor } from '../data/doctor';
 import '../styles/global.css';
@@ -89,5 +90,6 @@ const structuredData = {
       <WhatsAppFloatingButton />
     </main>
     <SiteFooter />
+    <MobileStickyBar />
   </body>
 </html>

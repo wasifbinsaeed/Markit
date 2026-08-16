@@ -3,6 +3,18 @@ import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import WhatsAppLink from '../components/WhatsAppLink.astro';
 import { treatmentCategories, treatmentsDisclaimer, SHOW_PRICES } from '../data/treatments';
+
+// Cross-references Dr. Rabia's own stated focus areas to the matching
+// treatment category, so visitors can browse by concern as well as by
+// category — using the same real content, not a separate invented taxonomy.
+const concernLinks = [
+  { concern: 'Acne & Acne Scarring', slug: 'peels-skin-brightening' },
+  { concern: 'Pigmentation & Uneven Tone', slug: 'peels-skin-brightening' },
+  { concern: 'Hair Loss & Thinning', slug: 'prp-meso-microneedling' },
+  { concern: 'Unwanted Hair', slug: 'laser-hair-removal-electrolysis' },
+  { concern: 'Skin Health & Maintenance', slug: 'hydrafacials-signature' },
+  { concern: 'Fine Lines & Wrinkles', slug: 'anti-wrinkle-injections' },
+];
 ---
 
 <Layout
@@ -14,8 +26,17 @@ import { treatmentCategories, treatmentsDisclaimer, SHOW_PRICES } from '../data/
       as="h1"
       eyebrow="Treatment Menu"
       heading="Every treatment, planned around your skin"
-      intro="Browse by category below. Pricing is confirmed at consultation, based on what your skin actually needs — message us on WhatsApp with any questions."
+      intro="Browse by category below, or jump straight to a concern. Pricing is confirmed at consultation, based on what your skin actually needs — message us on WhatsApp with any questions."
     />
+
+    <div class="concern-nav">
+      <p class="concern-nav__label">Browse by concern:</p>
+      <ul>
+        {concernLinks.map((c) => (
+          <li><a href={`#${c.slug}`}>{c.concern}</a></li>
+        ))}
+      </ul>
+    </div>
   </section>
 
   {treatmentCategories.map((cat) => (
@@ -53,6 +74,48 @@ import { treatmentCategories, treatmentsDisclaimer, SHOW_PRICES } from '../data/
 <style>
   .treatments-hero {
     padding-block: var(--space-8) var(--space-6);
+  }
+
+  .concern-nav {
+    margin-top: var(--space-6);
+  }
+
+  .concern-nav__label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+    margin-bottom: var(--space-3);
+  }
+
+  .concern-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .concern-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--color-ink);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease), background-color 0.2s var(--ease);
+  }
+
+  .concern-nav a:hover {
+    border-color: var(--color-accent-strong);
+    color: var(--color-accent-strong);
+    background: var(--color-surface);
   }
 
   .category {

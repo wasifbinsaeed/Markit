@@ -65,6 +65,13 @@ const year = new Date().getFullYear();
     margin-top: var(--space-10);
   }
 
+  @media (max-width: 959px) {
+    /* Keeps the fixed mobile Call/WhatsApp bar from covering footer content */
+    .site-footer {
+      padding-bottom: calc(var(--space-6) + 56px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
   .site-footer__grid {
     display: grid;
     gap: var(--space-7);

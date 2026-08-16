@@ -52,10 +52,21 @@ const images = [
     grid-template-columns: 1fr;
   }
 
+  .gallery-grid figure {
+    overflow: hidden;
+  }
+
   .gallery-grid img {
     width: 100%;
     object-fit: cover;
     aspect-ratio: 4 / 3;
+    transition: transform 0.4s var(--ease);
+  }
+
+  @media (hover: hover) {
+    .gallery-grid figure:hover img {
+      transform: scale(1.04);
+    }
   }
 
   figcaption {

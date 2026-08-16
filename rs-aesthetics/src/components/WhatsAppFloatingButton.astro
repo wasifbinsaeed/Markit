@@ -12,36 +12,38 @@ const href = whatsappLink(defaultWhatsAppMessage);
 
 <style>
   .wa-float {
-    position: fixed;
-    right: var(--space-5);
-    bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
-    z-index: 60;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3.25rem;
-    height: 3.25rem;
-    border-radius: 50%;
-    background: var(--color-espresso);
-    color: var(--color-on-espresso);
-    box-shadow: var(--shadow-md);
-    transition: transform 0.2s var(--ease), background-color 0.2s var(--ease);
-  }
-
-  .wa-float:hover {
-    transform: translateY(-2px);
-    background: #322c25;
-  }
-
-  .wa-float svg {
-    width: 1.6rem;
-    height: 1.6rem;
+    /* Hidden on mobile — MobileStickyBar covers Call + WhatsApp there instead.
+       Kept as a lighter-weight floating option for desktop, where the header
+       already carries both CTAs and a full-width bar would be excessive. */
+    display: none;
   }
 
   @media (min-width: 960px) {
     .wa-float {
+      position: fixed;
       right: var(--space-7);
       bottom: var(--space-7);
+      z-index: 60;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.25rem;
+      height: 3.25rem;
+      border-radius: 50%;
+      background: var(--color-espresso);
+      color: var(--color-on-espresso);
+      box-shadow: var(--shadow-md);
+      transition: transform 0.2s var(--ease), background-color 0.2s var(--ease);
+    }
+
+    .wa-float:hover {
+      transform: translateY(-2px);
+      background: #322c25;
+    }
+
+    .wa-float svg {
+      width: 1.6rem;
+      height: 1.6rem;
     }
   }
 </style>
