@@ -152,6 +152,9 @@ const concernLinks = [
     margin: 0 0 var(--space-6);
     padding: 0;
     max-width: 42rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
   }
 
   .category__list li {
@@ -159,8 +162,15 @@ const concernLinks = [
     justify-content: space-between;
     align-items: baseline;
     gap: var(--space-4);
-    padding: var(--space-4) 0;
-    border-bottom: 1px dashed var(--color-border);
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-surface);
+    border: var(--border-hairline);
+    border-radius: var(--radius-md);
+    transition: border-color 0.2s var(--ease);
+  }
+
+  .category__list li:hover {
+    border-color: var(--color-accent);
   }
 
   .category__name {
