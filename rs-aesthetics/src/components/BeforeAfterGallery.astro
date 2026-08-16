@@ -1,0 +1,224 @@
+---
+import { Image } from 'astro:assets';
+import { beforeAfterCases, defaultDisclaimer } from '../data/beforeAfter';
+import SectionHeading from './SectionHeading.astro';
+
+// Renders nothing until real, consented before/after cases exist in
+// src/data/beforeAfter.ts — see that file for how to add them.
+const cases = beforeAfterCases;
+const treatments = [...new Set(cases.map((c) => c.treatment))];
+---
+
+{cases.length > 0 && (
+  <section class="ba-gallery container">
+    <SectionHeading
+      eyebrow="Real Results"
+      heading="Before &amp; after"
+      intro="Genuine patient outcomes, shown with consent. Drag the slider to compare."
+    />
+
+    {treatments.length > 1 && (
+      <div class="ba-filter" role="group" aria-label="Filter by treatment">
+        <button type="button" class="ba-filter__btn is-active" data-filter="all">All</button>
+        {treatments.map((t) => (
+          <button type="button" class="ba-filter__btn" data-filter={t}>{t}</button>
+        ))}
+      </div>
+    )}
+
+    <div class="ba-grid">
+      {cases.map((c) => (
+        <figure class="ba-case" data-treatment={c.treatment}>
+          <div class="ba-slider" style="--pos: 50%">
+            <Image src={c.after} alt={`${c.treatment} — after`} width={700} height={700} class="ba-slider__img ba-slider__img--after" />
+            <Image src={c.before} alt={`${c.treatment} — before`} width={700} height={700} class="ba-slider__img ba-slider__img--before" />
+            <div class="ba-slider__handle" aria-hidden="true"></div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="ba-slider__range"
+              aria-label={`Drag to compare before and after photos for ${c.treatment}`}
+            />
+            <span class="ba-slider__label ba-slider__label--before">Before</span>
+            <span class="ba-slider__label ba-slider__label--after">After</span>
+          </div>
+          <figcaption>
+            <h3>{c.treatment}</h3>
+            <p>{c.sessions} &middot; {c.timing}</p>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <p class="ba-disclaimer">{defaultDisclaimer}</p>
+  </section>
+)}
+
+<script>
+  function initBeforeAfter() {
+    document.querySelectorAll<HTMLElement>('.ba-slider').forEach((slider) => {
+      const range = slider.querySelector<HTMLInputElement>('.ba-slider__range');
+      if (!range) return;
+      const update = () => slider.style.setProperty('--pos', `${range.value}%`);
+      range.addEventListener('input', update);
+      update();
+    });
+
+    const filterBtns = document.querySelectorAll<HTMLButtonElement>('.ba-filter__btn');
+    const cases = document.querySelectorAll<HTMLElement>('.ba-case');
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach((b) => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const filter = btn.dataset.filter;
+        cases.forEach((el) => {
+          el.hidden = !(filter === 'all' || el.dataset.treatment === filter);
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initBeforeAfter);
+</script>
+
+<style>
+  .ba-gallery {
+    padding-block: var(--space-9);
+  }
+
+  .ba-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .ba-filter__btn {
+    min-height: 44px;
+    padding: 0 var(--space-4);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    background: transparent;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .ba-filter__btn.is-active {
+    background: var(--color-espresso);
+    border-color: var(--color-espresso);
+    color: var(--color-on-espresso);
+  }
+
+  .ba-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+  }
+
+  .ba-slider {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: var(--border-hairline);
+    background: var(--color-surface-alt);
+    user-select: none;
+  }
+
+  .ba-slider__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ba-slider__img--before {
+    /* Reveals only the left --pos% of the "before" photo, so the "after"
+       photo underneath shows through on the right — the actual reveal
+       effect. Clipping (not resizing) keeps the image at full scale. */
+    clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  }
+
+  .ba-slider__handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 2px;
+    background: var(--color-on-espresso);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+    transform: translateX(-1px);
+    pointer-events: none;
+  }
+
+  .ba-slider__range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+
+  .ba-slider__label {
+    position: absolute;
+    bottom: var(--space-3);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-on-espresso);
+    background: rgba(41, 35, 31, 0.65);
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+    pointer-events: none;
+  }
+
+  .ba-slider__label--before {
+    left: var(--space-3);
+  }
+
+  .ba-slider__label--after {
+    right: var(--space-3);
+  }
+
+  .ba-case figcaption {
+    margin-top: var(--space-3);
+  }
+
+  .ba-case h3 {
+    font-size: var(--text-md);
+  }
+
+  .ba-case figcaption p {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+  }
+
+  .ba-disclaimer {
+    margin-top: var(--space-7);
+    max-width: 40rem;
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+    line-height: var(--leading-normal);
+  }
+
+  @media (min-width: 700px) {
+    .ba-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ba-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

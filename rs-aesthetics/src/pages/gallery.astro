@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import BeforeAfterGallery from '../components/BeforeAfterGallery.astro';
+import { beforeAfterCases } from '../data/beforeAfter';
 
 import treatmentRoom from '../assets/images/clinic/rs-aesthetics-treatment-room.jpg';
 import waitingArea from '../assets/images/clinic/rs-aesthetics-waiting-area.jpg';
@@ -34,11 +36,15 @@ const images = [
       ))}
     </div>
 
-    <div class="coming-soon">
-      <h2>Before &amp; after</h2>
-      <p>Real patient results, shown with consent, are coming soon.</p>
-    </div>
+    {beforeAfterCases.length === 0 && (
+      <div class="coming-soon">
+        <h2>Before &amp; after</h2>
+        <p>Real patient results, shown with consent, are coming soon.</p>
+      </div>
+    )}
   </section>
+
+  <BeforeAfterGallery />
 </Layout>
 
 <style>

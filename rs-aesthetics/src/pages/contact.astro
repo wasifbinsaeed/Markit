@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import WhatsAppLink from '../components/WhatsAppLink.astro';
+import Button from '../components/Button.astro';
 import { clinic } from '../data/clinic';
 ---
 
@@ -14,8 +15,13 @@ import { clinic } from '../data/clinic';
       as="h1"
       eyebrow="Contact"
       heading="Get in touch"
-      intro="The fastest way to reach us is WhatsApp. Message us with your name and what you'd like to discuss, and we'll reply to confirm a time."
+      intro="Fill in a short form to request a consultation, or message us directly on WhatsApp — either way, we'll reply to confirm a time."
     />
+
+    <div class="contact-actions">
+      <Button href="/book" variant="primary" size="lg">Book a Consultation</Button>
+      <WhatsAppLink variant="secondary" size="lg">WhatsApp Us</WhatsAppLink>
+    </div>
 
     <div class="contact-grid">
       <div class="contact-card">
@@ -27,7 +33,7 @@ import { clinic } from '../data/clinic';
             </li>
           ))}
         </ul>
-        <WhatsAppLink variant="primary">Message on WhatsApp</WhatsAppLink>
+        <WhatsAppLink variant="secondary">Message on WhatsApp</WhatsAppLink>
       </div>
 
       <div class="contact-card">
@@ -60,8 +66,8 @@ import { clinic } from '../data/clinic';
     </div>
 
     <p class="contact-note">
-      Submitting a message on WhatsApp is a request for an appointment, not a confirmed booking.
-      The clinic will reply to confirm your time.
+      Submitting the consultation form or a WhatsApp message is a request for an appointment, not
+      a confirmed booking. The clinic will reply to confirm your time.
     </p>
   </section>
 </Layout>
@@ -69,6 +75,13 @@ import { clinic } from '../data/clinic';
 <style>
   .contact {
     padding-block: var(--space-8) var(--space-9);
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
   }
 
   .contact-grid {

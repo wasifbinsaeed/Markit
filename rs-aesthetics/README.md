@@ -12,7 +12,8 @@ With ~30 treatments across 6 categories, a doctor profile, and a repeated design
 system (cards, buttons, nav), Astro gives reusable components and a single source
 of truth for content, while still outputting flat static files — no Node server in
 production, no framework JavaScript shipped to the browser unless a component
-explicitly needs it (only the mobile menu and WhatsApp button use a little JS here).
+explicitly needs it (the mobile menu, the consultation form, and the before/after
+slider each use a little vanilla JS; everything else is static HTML/CSS).
 
 ## Running locally
 
@@ -108,6 +109,36 @@ images yourself before uploading them.
 currently contain honest placeholder text. Replace the paragraph content in each
 file with final legal copy before public launch.
 
+### Before &amp; after photos
+
+Edit `src/data/beforeAfter.ts`. The array starts empty on purpose — the
+"Before & after" section (an interactive drag-to-compare slider, with a
+treatment filter) is fully built but **renders nothing anywhere on the site**
+until you add a real, consented case. To add one:
+
+1. Add the before/after photo pair to `src/assets/images/before-after/`.
+2. Import both at the top of `src/data/beforeAfter.ts` and add an entry to
+   `beforeAfterCases` (treatment name, session count, timing, the two images).
+3. That's it — the section automatically appears on the homepage and the
+   Gallery page (which also automatically stops showing its "coming soon" text
+   once real cases exist). No other file needs to change.
+
+Never add invented or stock before/after images — only genuine patient results
+with documented consent.
+
+### Testimonials
+
+Edit `src/data/testimonials.ts`. Same pattern as before/after: the array starts
+empty, the star-rating/quote/testimonial section is fully built but stays
+invisible until you add a real review. To add one, add an entry with the
+patient's approved quote, their initials or approved name, the treatment
+category, a star rating **only if the source actually provided one**, and the
+source (e.g. `'Google'`). If you set `clinic.googleReviewsUrl` in
+`src/data/clinic.ts` once your Google Business Profile is live, a "Read more
+reviews on Google" link appears automatically under the testimonials.
+
+Never invent reviews or star ratings.
+
 ## What's still using placeholder content
 
 - **Doctor portrait** — currently an elegant initials placeholder ("DRS") instead
@@ -119,14 +150,55 @@ file with final legal copy before public launch.
   homepage and Contact page show a "map coming soon" placeholder instead of an
   embed. Once you have the Maps link, add it to `clinic.mapsUrl` in
   `src/data/clinic.ts` and embed it on the Contact page.
-- **Before & after photos** — no real estate on the live site yet; the Gallery
-  page shows a "coming soon" panel. Do not add fabricated results — only real,
-  consented patient photos.
-- **Testimonials** — intentionally left out of the live site until genuine
-  reviews are available.
+- **Before & after photos** — the comparison-slider section is fully built
+  (see "Editing content" above) but stays hidden until real, consented cases
+  are added to `src/data/beforeAfter.ts`.
+- **Testimonials** — the reviews section is fully built but stays hidden until
+  genuine, patient-approved reviews are added to `src/data/testimonials.ts`.
 - **Legal pages** — placeholder text (see above).
 - **Domain / hosting** — the site is built to deploy to `rsaesthetics.pk` on
   HostBreak, but confirm both have been purchased before going live.
+- **Consultation form emails** — the "Book a Consultation" form (see below)
+  can only be fully tested after deployment, since it relies on PHP mail
+  which local `npm run dev`/`preview` doesn't run.
+
+## How booking works
+
+There are two ways a patient can reach out, both always available:
+
+- **"Book a Consultation"** (the primary button throughout the site) leads to
+  `/book`, a short form (name, phone, treatment/concern, preferred day & time,
+  optional message). On submit, it emails the enquiry to the clinic and
+  immediately shows a "Continue on WhatsApp" button pre-filled with the same
+  details, so the patient can also message directly if they want to.
+- **"WhatsApp Us"** (secondary, persistent — in the header, the mobile bottom
+  bar, and the desktop floating button) opens WhatsApp directly at any time.
+
+Neither path claims to confirm an appointment — both are clearly labelled as
+requests that the clinic confirms afterward.
+
+### The form's email handler
+
+The form posts to `public/api/consultation-request.php`, a small,
+dependency-free PHP script that emails the enquiry to the clinic. This works
+because HostBreak's cPanel hosting runs PHP alongside static files — Astro
+just copies this file into `dist/api/` untouched during the build, and the
+live server executes it.
+
+**This will not work during local development** (`npm run dev` / `npm run
+preview`) — those only serve static files, with no PHP runtime. Submitting the
+form locally will show a friendly error pointing to WhatsApp instead — that's
+expected, not a bug. Test the actual email delivery after deploying to
+HostBreak.
+
+If the clinic's contact email ever changes, update it in **two places**:
+`src/data/clinic.ts` (used everywhere else on the site) and the `$to` variable
+near the top of `public/api/consultation-request.php` (PHP can't read the
+TypeScript data file).
+
+If `mail()` proves unreliable on HostBreak (a common issue with shared hosting
+and spam filters), the standard fix is switching to SMTP via a library like
+PHPMailer — that's a deliberate future upgrade, not something built in yet.
 
 ## Deploying to HostBreak
 
@@ -175,7 +247,10 @@ This assumes no prior experience with web hosting or cPanel.
     shows the connection is secure (HTTPS).
 
 13. **Test everything on the live site:**
-    - Every page loads (Home, Treatments, About, Gallery, FAQs, Contact, legal pages)
+    - Every page loads (Home, Treatments, About, Gallery, FAQs, Contact, Book, legal pages)
+    - Submit the "Book a Consultation" form with real test details and confirm
+      the clinic actually receives the email (check spam folder too — see
+      "How booking works" above if it doesn't arrive)
     - The WhatsApp button opens a chat with the correct number and message
     - The phone number link dials correctly on a mobile device
     - The email link opens a mail client
@@ -206,6 +281,7 @@ src/
   pages/               — one file per route (index.astro = homepage, etc.)
   styles/global.css    — design tokens (colours, type, spacing) and base styles
 public/
+  api/consultation-request.php — email handler for the booking form
   fonts/               — self-hosted variable fonts (Fraunces, Inter)
   favicon.svg, robots.txt, etc.
 ```

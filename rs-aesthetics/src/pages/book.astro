@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ConsultationForm from '../components/ConsultationForm.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+---
+
+<Layout
+  title="Book a Consultation"
+  description="Request a consultation with Dr. Rabia Saif at RS Aesthetics, Rawalpindi. Tell us your name, contact details and concern, and we'll confirm a time."
+>
+  <section class="book container">
+    <div class="book__intro">
+      <SectionHeading
+        as="h1"
+        eyebrow="Book a Consultation"
+        heading="Tell us a little about what you're looking for"
+        intro="Every treatment at RS Aesthetics starts with a consultation with Dr. Rabia Saif. Fill in the form below and we'll get back to you to confirm a time — or message us directly on WhatsApp if that's easier."
+      />
+      <WhatsAppLink variant="secondary" class="book__wa-secondary">WhatsApp Us Instead</WhatsAppLink>
+    </div>
+
+    <ConsultationForm />
+  </section>
+</Layout>
+
+<style>
+  .book {
+    padding-block: var(--space-8) var(--space-9);
+  }
+
+  .book__intro {
+    margin-bottom: var(--space-7);
+  }
+
+  .book :global(.book__wa-secondary) {
+    margin-top: var(--space-2);
+  }
+</style>

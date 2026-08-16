@@ -4,6 +4,8 @@ import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import WhatsAppLink from '../components/WhatsAppLink.astro';
 import Button from '../components/Button.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import BeforeAfterGallery from '../components/BeforeAfterGallery.astro';
 import { clinic } from '../data/clinic';
 import { doctor } from '../data/doctor';
 import { treatmentCategories } from '../data/treatments';
@@ -62,9 +64,10 @@ const previewFaqs = generalFaqs.slice(0, 4);
         medicine. Every treatment begins with an assessment by {doctor.name}, {doctor.postNominal}.
       </p>
       <div class="hero__actions">
-        <WhatsAppLink variant="primary" size="lg">Book on WhatsApp</WhatsAppLink>
-        <Button href="/treatments" variant="secondary" size="lg">View Treatments</Button>
+        <Button href="/book" variant="primary" size="lg">Book a Consultation</Button>
+        <WhatsAppLink variant="secondary" size="lg">WhatsApp Us</WhatsAppLink>
       </div>
+      <Button href="/treatments" variant="text" class="hero__treatments-link">Or browse treatments →</Button>
       <ul class="hero__trust">
         {trustPoints.map((point) => <li>{point}</li>)}
       </ul>
@@ -141,6 +144,10 @@ const previewFaqs = generalFaqs.slice(0, 4);
     </div>
   </section>
 
+  <TestimonialsSection />
+
+  <BeforeAfterGallery />
+
   <!-- FAQ preview -->
   <section class="faq-preview">
     <div class="container">
@@ -169,8 +176,8 @@ const previewFaqs = generalFaqs.slice(0, 4);
         ))}
       </ul>
       <div class="location__actions">
-        <WhatsAppLink variant="primary">Get Directions on WhatsApp</WhatsAppLink>
-        <Button href="/contact" variant="secondary">Contact Page</Button>
+        <Button href="/book" variant="primary">Book a Consultation</Button>
+        <WhatsAppLink variant="secondary">WhatsApp Us</WhatsAppLink>
       </div>
     </div>
     <div class="location__map" aria-hidden="true">
@@ -182,8 +189,11 @@ const previewFaqs = generalFaqs.slice(0, 4);
   <section class="final-cta">
     <div class="container final-cta__inner">
       <h2>Ready to talk about your skin?</h2>
-      <p>Message Dr. Rabia's team on WhatsApp to arrange a consultation.</p>
-      <WhatsAppLink variant="primary" size="lg">Chat on WhatsApp</WhatsAppLink>
+      <p>Tell us a little about what you're looking for, or message Dr. Rabia's team directly on WhatsApp.</p>
+      <div class="final-cta__actions">
+        <Button href="/book" variant="primary" size="lg">Book a Consultation</Button>
+        <WhatsAppLink variant="secondary" size="lg">WhatsApp Us</WhatsAppLink>
+      </div>
     </div>
   </section>
 </Layout>
@@ -215,6 +225,11 @@ const previewFaqs = generalFaqs.slice(0, 4);
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-4);
+  }
+
+  .hero :global(.hero__treatments-link) {
+    display: inline-flex;
+    margin-top: var(--space-4);
   }
 
   .hero__trust {
@@ -483,6 +498,13 @@ const previewFaqs = generalFaqs.slice(0, 4);
   .final-cta p {
     color: var(--color-ink-soft);
     max-width: 28rem;
+  }
+
+  .final-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
   }
 
   @media (min-width: 720px) {

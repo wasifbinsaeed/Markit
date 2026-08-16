@@ -1,0 +1,127 @@
+---
+import { testimonials } from '../data/testimonials';
+import { clinic } from '../data/clinic';
+import SectionHeading from './SectionHeading.astro';
+
+// Renders nothing until real, patient-approved reviews exist in
+// src/data/testimonials.ts — see that file for how to add them.
+---
+
+{testimonials.length > 0 && (
+  <section class="testimonials">
+    <div class="container">
+      <SectionHeading eyebrow="Patient Reviews" heading="What patients say" />
+
+      <div class="testimonials__grid">
+        {testimonials.map((t) => (
+          <figure class="testimonial-card">
+            {t.rating && (
+              <div class="testimonial-card__stars" aria-label={`Rated ${t.rating} out of 5 stars`}>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <span aria-hidden="true">{i < t.rating! ? '★' : '☆'}</span>
+                ))}
+              </div>
+            )}
+            <blockquote>&ldquo;{t.quote}&rdquo;</blockquote>
+            <figcaption>
+              <span class="testimonial-card__name">{t.attribution}</span>
+              <span class="testimonial-card__meta">
+                {t.treatmentCategory} · {t.source}
+                {t.sourceUrl && (
+                  <>
+                    {' '}
+                    · <a href={t.sourceUrl} target="_blank" rel="noopener noreferrer">View review</a>
+                  </>
+                )}
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      {clinic.googleReviewsUrl && (
+        <a class="testimonials__all" href={clinic.googleReviewsUrl} target="_blank" rel="noopener noreferrer">
+          Read more reviews on Google →
+        </a>
+      )}
+    </div>
+  </section>
+)}
+
+<style>
+  .testimonials {
+    padding-block: var(--space-9);
+    background: var(--color-surface);
+    border-block: var(--border-hairline);
+  }
+
+  .testimonials__grid {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-card {
+    margin: 0;
+    padding: var(--space-6);
+    background: var(--color-bg);
+    border: var(--border-hairline);
+  }
+
+  .testimonial-card__stars {
+    color: var(--color-accent-strong);
+    font-size: var(--text-md);
+    letter-spacing: 0.15em;
+  }
+
+  .testimonial-card blockquote {
+    margin: var(--space-4) 0 0;
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+    color: var(--color-ink);
+  }
+
+  .testimonial-card figcaption {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .testimonial-card__name {
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+
+  .testimonial-card__meta {
+    font-size: var(--text-xs);
+    color: var(--color-ink-faint);
+  }
+
+  .testimonial-card__meta a {
+    color: var(--color-accent-strong);
+  }
+
+  .testimonials__all {
+    display: inline-block;
+    margin-top: var(--space-7);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-accent-strong);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (min-width: 700px) {
+    .testimonials__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

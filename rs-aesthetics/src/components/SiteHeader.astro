@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import WhatsAppLink from './WhatsAppLink.astro';
+import Button from './Button.astro';
 import { clinic } from '../data/clinic';
 
 const navItems = [
@@ -37,7 +38,7 @@ const primaryPhone = clinic.phones[0];
 
     <div class="site-header__actions">
       <a class="site-header__phone" href={`tel:${primaryPhone.tel}`}>{primaryPhone.display}</a>
-      <WhatsAppLink variant="primary" size="md">Book Appointment</WhatsAppLink>
+      <Button href="/book" variant="primary" size="md">Book a Consultation</Button>
     </div>
 
     <button
@@ -65,8 +66,9 @@ const primaryPhone = clinic.phones[0];
     </ul>
   </nav>
   <div class="mobile-nav__actions">
+    <Button href="/book" variant="primary" size="lg" class="mobile-nav__wa">Book a Consultation</Button>
     <a class="mobile-nav__phone" href={`tel:${primaryPhone.tel}`}>Call {primaryPhone.display}</a>
-    <WhatsAppLink variant="primary" size="lg" class="mobile-nav__wa">Book on WhatsApp</WhatsAppLink>
+    <WhatsAppLink variant="secondary" size="lg" class="mobile-nav__wa">WhatsApp Us</WhatsAppLink>
   </div>
 </div>
 

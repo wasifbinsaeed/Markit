@@ -22,20 +22,24 @@
 
 :root {
   /* Colour tokens — warm ivory / deep espresso / muted bronze / taupe.
-     Deliberately avoids flashy gold and salon-warm beige. */
-  --color-bg: #F5F1E8;
-  --color-surface: #FBF9F4;
+     Deliberately avoids flashy gold and salon-warm beige.
+     --color-taupe is decorative/large-text only (~3.5:1 on bg) — actual
+     body/caption text keeps --color-ink-faint, which is verified WCAG AA. */
+  --color-bg: #F5F1EB;
+  --color-surface: #FBF9F5;
   --color-surface-alt: #EFE9DC;
   --color-ink: #24211D;
   --color-ink-soft: #55504A;
   --color-ink-faint: #6B6459;
-  --color-accent: #9C7A50;
+  --color-taupe: #8A7D72;
+  --color-accent: #9A7655;
   --color-accent-strong: #7C5F3D;
   --color-accent-soft: #D9C9AE;
   --color-border: #E1D8C4;
-  --color-border-strong: #CBBFA4;
-  --color-espresso: #1E1B17;
-  --color-on-espresso: #F5F1E8;
+  --color-border-strong: #D8D0C7;
+  --color-espresso: #29231F;
+  --color-espresso-hover: #362F29;
+  --color-on-espresso: #F5F1EB;
   --color-success: #4B6B4E;
   --color-error: #8B3A3A;
 

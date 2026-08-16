@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import WhatsAppLink from '../components/WhatsAppLink.astro';
+import Button from '../components/Button.astro';
 import { doctor } from '../data/doctor';
 ---
 
@@ -33,7 +34,10 @@ import { doctor } from '../data/doctor';
         </div>
       </dl>
 
-      <WhatsAppLink variant="primary">Book a Consultation</WhatsAppLink>
+      <div class="profile__actions">
+        <Button href="/book" variant="primary">Book a Consultation</Button>
+        <WhatsAppLink variant="secondary">WhatsApp Us</WhatsAppLink>
+      </div>
     </div>
   </section>
 
@@ -69,8 +73,11 @@ import { doctor } from '../data/doctor';
 
   <section class="cta container">
     <h2>Start with a consultation</h2>
-    <p>Every treatment plan begins with an assessment — message us to arrange yours.</p>
-    <WhatsAppLink variant="primary" size="lg">Chat on WhatsApp</WhatsAppLink>
+    <p>Every treatment plan begins with an assessment — tell us a little about yourself, or message us directly.</p>
+    <div class="cta__actions">
+      <Button href="/book" variant="primary" size="lg">Book a Consultation</Button>
+      <WhatsAppLink variant="secondary" size="lg">WhatsApp Us</WhatsAppLink>
+    </div>
   </section>
 </Layout>
 
@@ -129,6 +136,12 @@ import { doctor } from '../data/doctor';
     margin: 0;
     font-size: var(--text-sm);
     color: var(--color-ink);
+  }
+
+  .profile__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
   }
 
   .bio {
@@ -223,6 +236,13 @@ import { doctor } from '../data/doctor';
   .cta p {
     color: var(--color-ink-soft);
     max-width: 26rem;
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
   }
 
   @media (min-width: 900px) {

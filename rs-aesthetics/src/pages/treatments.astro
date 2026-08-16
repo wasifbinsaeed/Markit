@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import WhatsAppLink from '../components/WhatsAppLink.astro';
+import Button from '../components/Button.astro';
 import { treatmentCategories, treatmentsDisclaimer, SHOW_PRICES } from '../data/treatments';
 
 // Cross-references Dr. Rabia's own stated focus areas to the matching
@@ -26,8 +27,13 @@ const concernLinks = [
       as="h1"
       eyebrow="Treatment Menu"
       heading="Every treatment, planned around your skin"
-      intro="Browse by category below, or jump straight to a concern. Pricing is confirmed at consultation, based on what your skin actually needs — message us on WhatsApp with any questions."
+      intro="Browse by category below, or jump straight to a concern. Pricing is confirmed at consultation, based on what your skin actually needs."
     />
+
+    <div class="treatments-hero__actions">
+      <Button href="/book" variant="primary">Book a Consultation</Button>
+      <WhatsAppLink variant="secondary">WhatsApp Us</WhatsAppLink>
+    </div>
 
     <div class="concern-nav">
       <p class="concern-nav__label">Browse by concern:</p>
@@ -74,6 +80,13 @@ const concernLinks = [
 <style>
   .treatments-hero {
     padding-block: var(--space-8) var(--space-6);
+  }
+
+  .treatments-hero__actions {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
   }
 
   .concern-nav {

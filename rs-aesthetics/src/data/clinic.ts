@@ -33,6 +33,7 @@ export const clinic = {
 
   // Pending — Google Business listing is under review.
   mapsUrl: null as string | null,
+  googleReviewsUrl: null as string | null,
 } as const;
 
 const primaryPhone = clinic.phones[0];
